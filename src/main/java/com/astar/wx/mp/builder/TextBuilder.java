@@ -46,7 +46,8 @@ public class TextBuilder extends AbstractBuilder {
                 String[] user = push.split(":")[1].split("-");
                 String openId = user[0];
                 Integer cishu = Integer.parseInt(user[1]);
-                dataMap.put(openId, dataMap.get(wxMessage.getFromUser()).intValue() + cishu.intValue());
+                int yue = dataMap.get(wxMessage.getFromUser()) == null ? 0 : dataMap.get(wxMessage.getFromUser()).intValue();
+                dataMap.put(openId,  yue+ cishu.intValue());
                 WxMpXmlOutTextMessage m = WxMpXmlOutMessage.TEXT().content("充值成功：余额：" + dataMap.get(wxMessage.getFromUser()))
                     .fromUser(wxMessage.getToUser()).toUser(wxMessage.getFromUser())
                     .build();
