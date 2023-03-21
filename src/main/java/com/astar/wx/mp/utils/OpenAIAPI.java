@@ -22,9 +22,9 @@ import java.util.Map;
 @UtilityClass
 public class OpenAIAPI {
     /**
-     * 聊天端点
+     * 聊天端点 楼主的国内调用，不用开梯子的站点，就是比较慢哦
      */
-    String chatEndpoint = "https://api.openai.com/v1/chat/completions";
+    String chatEndpoint = "http://nginx.web-framework-1qoh.1045995386668294.us-west-1.fc.devsapp.net/v1/chat/completions";
     /**
      * api密匙
      */
