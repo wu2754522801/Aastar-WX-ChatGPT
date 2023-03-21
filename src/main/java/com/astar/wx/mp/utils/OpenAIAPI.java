@@ -22,9 +22,9 @@ import java.util.Map;
 @UtilityClass
 public class OpenAIAPI {
     /**
-     * 聊天端点
+     * 聊天端点 楼主提供国内免费调用ChatGPT站点，不需要开梯子，请求稍微慢一点，请耐心等待哦
      */
-    String chatEndpoint = "https://api.openai.com/v1/chat/completions";
+    String chatEndpoint = "http://nginx.web-framework-1qoh.1045995386668294.us-west-1.fc.devsapp.net/v1/chat/completions";
     /**
      * api密匙
      */
