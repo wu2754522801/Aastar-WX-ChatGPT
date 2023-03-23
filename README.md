@@ -5,12 +5,9 @@
 #### ChatGPT接入微信公众号，帮助公众号集成ChatGPT进行聊天对话智能机器人
 
 ### 微信公众号正式环境（当前环境还未切数据，请关注次公众号等候）
-
+### 微信扫码
 <img src="./img/公众号.png" width="400px" height="400px">
 
-
-### 微信扫码体验
-<img src="./img/测试号二维码.png" width="400px" height="400px">
 
 ### 扫码交流
 <img src="./img/qq群.png" width="400px" height="400px">
