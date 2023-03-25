@@ -57,9 +57,7 @@ public class OpenAIAPI {
             JSONArray choices = jsonObject.getJSONArray("choices");
             JSONObject result = choices.get(0, JSONObject.class, Boolean.TRUE);
             message = result.getJSONObject("message");
-        } catch (HttpException e) {
-            return "请联系作者Q:2754522801进行问题修复";
-        } catch (ConvertException e) {
+        } catch (Exception e) {
             return "请联系作者Q:2754522801进行问题修复";
         }
         return message.getStr("content");
