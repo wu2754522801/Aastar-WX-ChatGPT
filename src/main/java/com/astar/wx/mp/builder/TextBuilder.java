@@ -27,7 +27,7 @@ public class TextBuilder extends AbstractBuilder {
                 .build();
             return m;
         }
-        if (!"ou9Qi531biZIdwQb28fRbNRNQtts".equals(wxMessage.getFromUser())) {
+        if (!"o9TK56BCwNifL4S-uJKJOpIoSp24".equals(wxMessage.getFromUser())) {
             // 计数
             Integer count = dataMap.get(wxMessage.getFromUser());
             count = count == null ? 20 : count;

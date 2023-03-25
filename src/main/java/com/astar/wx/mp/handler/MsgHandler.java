@@ -28,7 +28,6 @@ public class MsgHandler extends AbstractHandler {
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
                                     Map<String, Object> context, WxMpService weixinService,
                                     WxSessionManager sessionManager) {
-
         if ("我的信息".equals(wxMessage.getContent())) {
             String text = "用户：" + wxMessage.getFromUser() + "\n" +
                 "剩余次数：" + dataMap.get(wxMessage.getFromUser());
@@ -37,7 +36,7 @@ public class MsgHandler extends AbstractHandler {
                 .build();
             return m;
         }
-        if (!"ou9Qi531biZIdwQb28fRbNRNQtts".equals(wxMessage.getFromUser())) {
+        if (!"o9TK56BCwNifL4S-uJKJOpIoSp24".equals(wxMessage.getFromUser())) {
             // 计数
             Integer count = dataMap.get(wxMessage.getFromUser());
             count = count == null ? 20 : count;
