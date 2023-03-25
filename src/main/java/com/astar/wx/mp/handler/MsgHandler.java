@@ -2,14 +2,17 @@ package com.astar.wx.mp.handler;
 
 import com.astar.wx.mp.builder.TextBuilder;
 import com.astar.wx.mp.utils.JsonUtils;
+import com.astar.wx.mp.utils.OpenAIAPI;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutMessage;
+import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
@@ -19,33 +22,52 @@ import static me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
  */
 @Component
 public class MsgHandler extends AbstractHandler {
+    public  static  final Map<String, Integer> dataMap = new HashMap<>();
 
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
                                     Map<String, Object> context, WxMpService weixinService,
                                     WxSessionManager sessionManager) {
 
-        if (!wxMessage.getMsgType().equals(XmlMsgType.EVENT)) {
-            //TODO 可以选择将消息保存到本地
+        if ("我的信息".equals(wxMessage.getContent())) {
+            String text = "用户：" + wxMessage.getFromUser() + "\n" +
+                "剩余次数：" + dataMap.get(wxMessage.getFromUser());
+            WxMpXmlOutTextMessage m = WxMpXmlOutMessage.TEXT().content(text)
+                .fromUser(wxMessage.getToUser()).toUser(wxMessage.getFromUser())
+                .build();
+            return m;
         }
-
-        //当用户输入关键词如“你好”，“客服”等，并且有客服在线时，把消息转发给在线客服
-        try {
-            if (StringUtils.startsWithAny(wxMessage.getContent(), "你好", "客服")
-                && weixinService.getKefuService().kfOnlineList()
-                .getKfOnlineList().size() > 0) {
-                return WxMpXmlOutMessage.TRANSFER_CUSTOMER_SERVICE()
-                    .fromUser(wxMessage.getToUser())
-                    .toUser(wxMessage.getFromUser()).build();
+        if (!"ou9Qi531biZIdwQb28fRbNRNQtts".equals(wxMessage.getFromUser())) {
+            // 计数
+            Integer count = dataMap.get(wxMessage.getFromUser());
+            count = count == null ? 20 : count;
+            int i = count - 1;
+            if (i <= 0) {
+                WxMpXmlOutTextMessage m = WxMpXmlOutMessage.TEXT().content("次数不足，请联系Q：2754522801获取免费次数")
+                    .fromUser(wxMessage.getToUser()).toUser(wxMessage.getFromUser())
+                    .build();
+                dataMap.put(wxMessage.getFromUser(), count);
+                return m;
             }
-        } catch (WxErrorException e) {
-            e.printStackTrace();
+        } else {
+            if (wxMessage.getContent().contains("充值用户")) {
+                // 充值用户:ou9Qi531biZIdwQb28fRbNRNQtts-100
+                String push = wxMessage.getContent();
+                String[] user = push.split(":")[1].split("-");
+                String openId = user[0];
+                Integer cishu = Integer.parseInt(user[1]);
+                int yue = dataMap.get(wxMessage.getFromUser()) == null ? 0 : dataMap.get(wxMessage.getFromUser()).intValue();
+                dataMap.put(openId,  yue+ cishu.intValue());
+                WxMpXmlOutTextMessage m = WxMpXmlOutMessage.TEXT().content("充值成功：余额：" + dataMap.get(wxMessage.getFromUser()))
+                    .fromUser(wxMessage.getToUser()).toUser(wxMessage.getFromUser())
+                    .build();
+                return m;
+            }
         }
-
-        //TODO 组装回复消息
-        String content = "收到信息内容：" + JsonUtils.toJson(wxMessage);
-
-        return new TextBuilder().build(content, wxMessage, weixinService);
+        WxMpXmlOutTextMessage m = WxMpXmlOutMessage.TEXT().content(OpenAIAPI.chat(wxMessage.getContent()))
+            .fromUser(wxMessage.getToUser()).toUser(wxMessage.getFromUser())
+            .build();
+        return m;
 
     }
 
