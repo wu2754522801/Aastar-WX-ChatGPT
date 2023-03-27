@@ -14,6 +14,7 @@
 
 ## 效果截图
 <img src="./img/WechatIMG58.jpeg" width="400px">
+<img src="./img/template.jpeg" width="400px">
 
 ## 使用步骤：
 1. 主要配置说明如下：
