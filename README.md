@@ -14,6 +14,7 @@
 
 ## 效果截图
 <img src="./img/WechatIMG58.jpeg" width="400px">
+<img src="./img/template.jpeg" width="400px">
 
 ## 使用步骤：
 1. 主要配置说明如下：
@@ -46,3 +47,7 @@ wx:
 1. 如果网络情况，或者内容量比较大应该改为异步推送，否则会回复失败
 2. 需要海外服务器，或者代理进行调用
 3. 如需部署联系作者哦
+
+
+### 赞赏
+<img src="img/zanshang.jpg" width="300px" height="300px">
