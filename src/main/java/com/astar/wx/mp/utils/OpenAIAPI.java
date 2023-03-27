@@ -58,7 +58,7 @@ public class OpenAIAPI {
             JSONObject result = choices.get(0, JSONObject.class, Boolean.TRUE);
             message = result.getJSONObject("message");
         } catch (Exception e) {
-            return "请联系作者Q:2754522801进行问题修复";
+            return "欢迎加入交流Q群学习：25869543，当前环境出现问题!";
         }
         return message.getStr("content");
     }

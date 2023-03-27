@@ -1,11 +1,14 @@
 server:
-  port: 9090
+  port: 80
 
 logging:
   level:
     org.springframework.web: INFO
     com.github.binarywang.demo.wx.mp: DEBUG
     me.chanjar.weixin: DEBUG
+
+astar:
+  templateEnable: false #是否启用模板推送消息
 wx:
   mp:
     useRedis: false
