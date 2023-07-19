@@ -49,5 +49,3 @@ wx:
 3. 如需部署联系作者哦
 
 
-### 赞赏
-<img src="img/zanshang.jpg" width="300px" height="300px">
